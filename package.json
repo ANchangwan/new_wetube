@@ -1,0 +1,21 @@
+{
+  "name": "mytube",
+  "version": "1.0.0",
+  "description": "best way to use nodejs",
+  "scripts": {
+    "win": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ANchangwan/new_wetube.git"
+  },
+  "author": "Anchangwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ANchangwan/new_wetube/issues"
+  },
+  "homepage": "https://github.com/ANchangwan/new_wetube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
