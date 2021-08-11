@@ -2,17 +2,17 @@
 
 Global(모든 영역에서 표시)
 
-/ -> home
-/join -> Join
-/login -> Login
-/search -> Search
+/ -> home</br>
+/join -> Join</br>
+/login -> Login</br>
+/search -> Search</br>
 
-/users/:id -> See User
-/users/logout -> Log Out
-/users/edit -> Edit MY Profile
-/user/remove -> Delete my profile
+/users/:id -> See User</br>
+/users/logout -> Log Out</br>
+/users/edit -> Edit MY Profile</br>
+/user/remove -> Delete my profile</br>
 
-/videos/:id -> See Video
-/videos/:id/edit -> Edit Video
-/videos/:id/delet -> Delete Videos
-/videos/upload -> Upload Video
+/videos/:id -> See Video</br>
+/videos/:id/edit -> Edit Video</br>
+/videos/:id/delet -> Delete Videos</br>
+/videos/upload -> Upload Video</br>
