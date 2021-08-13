@@ -48,4 +48,11 @@ export const postEdit = (req, res) => {
   return res.redirect(`/videos/${id}`);
 };
 
-export const search = (req, res) => res.send("Search");
+export const getUpload = (req, res) =>{
+  return res.render("upload", {pageTitle:"Upload Video"});
+};
+
+export const postUpload = (req, res) => {
+  // 여기에 비디오 업로드 배열을 추가할 예정입니다.
+  return res.redirect("/")
+}
