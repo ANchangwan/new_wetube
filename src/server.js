@@ -1,13 +1,9 @@
-import "./db"
-import "./models/Video";
+
 import express from "express";
 import morgan from "morgan"
 import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
 import userRounter from "./routers/userRouter";
-
-
-const PORT = 4000
 
 const app = express();
 
@@ -19,7 +15,6 @@ app.use("/", globalRouter);
 app.use("/users", userRounter);
 app.use("/videos", videoRouter);
 
+export default app;
 
-const handleListening = () => console.log(`start nodejs on port http://localhost:${PORT}`);
 
-app.listen(PORT, handleListening);
