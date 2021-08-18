@@ -44,18 +44,15 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      createdAt:Date.now(),
       hashtags: hashtags.split(",").map((word) => `#${word}`),
       meta:{
         views:0,
         rating:0
       }
     });
-  }catch(error){
-    alert("에러가발생했습니다.");
     return res.redirect("/");
+  }catch(error){
+    console.log(error);
+    return res.render("upload", {pageTitle:"Upload Video", errorMassage:error._message});
   }
-  
-
-  return res.redirect("/");
 };
