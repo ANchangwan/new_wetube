@@ -1,14 +1,6 @@
 import Video from "../models/Video";
 
-/* callback 함수
-Video.find({}, (error, videos) =>{
-  if(error){
-    return res.render("error-server");
-  }else{
-    return res.render("home", {pageTitle: "Home",videos} );
-  }
-})
- */
+
 
 export const home = async (req, res) =>{
   try{
@@ -38,7 +30,6 @@ export const getEdit = async (req, res) => {
 
 export const postEdit = async (req, res) => {
   const {id} = req.params;
-  console.log(req.body);
   const {title, description, hashtags} = req.body;
   const video = await Video.exists({_id:id});
   if(!video){
@@ -47,10 +38,8 @@ export const postEdit = async (req, res) => {
   await Video.findByIdAndUpdate(id,{
       title,
       description,
-      hashtags: hashtags
-      .split(",")
-      .map(word => word.startsWith('#') ? word : `#${word}`)}
-    );
+      hashtags:Video.formatHashtags(hashtags)
+    });
   
   return res.redirect(`/videos/${id}`);
 };
@@ -66,7 +55,7 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags.split(",").map((word) => `#${word}`),
+      hashtags:Video.formatHashtags(hashtags),
       meta:{
         views:0,
         rating:0
@@ -78,3 +67,9 @@ export const postUpload = async (req, res) => {
     return res.render("upload", {pageTitle:"Upload Video", errorMassage:error._message});
   }
 };
+
+export const deleteVideo = async (req, res) =>{
+  const {id} = req.params;
+  await Video.findByIdAndDelete(id);
+  return res.redirect("/");
+}
