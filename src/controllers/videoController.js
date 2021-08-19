@@ -10,6 +10,7 @@ export const home = async (req, res) =>{
     return res.render("server-error"); 
   }
 };
+
 export const watch = async (req, res) =>{
     const {id} = req.params;
     const video = await Video.findById(id);
@@ -69,7 +70,21 @@ export const postUpload = async (req, res) => {
 };
 
 export const deleteVideo = async (req, res) =>{
-  const {id} = req.params;
+  const { id } = req.params;
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
+}
+
+export const search = async (req, res) =>{
+  const { keyword } = req.query;
+  let videos = [];
+  if (keyword) {
+    videos = await Video.find({
+      title:{
+        $regex: new RegExp(`${keyword}$`,"i")
+      },
+    });
+  }
+  
+  return res.render("search", {pageTitle: "Search", videos});
 }
