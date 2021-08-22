@@ -1,24 +1,30 @@
+import { response } from "express";
 import User from "../models/User";
 
 export const getJoin = (req, res) => {
     return res.render("join", {pageTitle:"Join"});
 }
 export const postJoin = async (req, res) => {
-    const {email, username, password, name, loacation} = req.body;
-    
-    try{
-        await User.create({
-            email,
-            username, 
-            password, 
-            name, 
-            loacation
-        });
-    }catch(error){
-        res.write("<script>alert('이미 존재하는 계정입니다.')</script>");
-        res.redirect("/join");
-    
+    const {email, username, password, password2, name, loacation} = req.body;
+    const exists = await User.exists({$or:[{username},{email}]});
+
+    if (password !== password2 ){
+   
+        return res.status(400).render("join", {pageTitle:"Join",errorMessage:`패스워드가 일치하지 않습니다.` });
+    };
+
+    if(exists){
+        return res.status(400).render("join", {pageTitle:"Join",errorMessage:`이미존재하는 ${exists}계정입니다.` });
     }
+    
+    await User.create({
+        email,
+        username, 
+        password, 
+        name, 
+        loacation
+    });
+   
     console.log(req.body);
     return res.redirect("/login");
 }
