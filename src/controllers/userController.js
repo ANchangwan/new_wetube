@@ -48,12 +48,16 @@ export const postLogin = async (req, res) =>{
     if (!ok){
         return res.status(400).render("login",{pageTitle, errorMessage:"Wrong password"});
     }
-    console.log("로그인 구현 성공");
-    res.redirect("/");
+    req.session.loggedIn = true;
+    req.session.user =  user;// session에 정보 추가
+    res.redirect("/", );
 }
 
 export const edit = (req, res) => res.render("edit");
 export const remove = (req, res) => res.send("remove User");
-export const logout = (req, res) => res.send("Log Out");
+export const logout = (req, res) => {
+    req.session.loggedIn = true;
+    res.redirect("/", )
+};
 export const see = (req, res) => res.send("See User");
 
