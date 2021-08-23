@@ -57,21 +57,22 @@ export const postLogin = async (req, res) =>{
 export const edit = (req, res) => res.render("edit");
 export const remove = (req, res) => res.send("remove User");
 export const logout = async (req, res) => {
-   try{
-       if(req.session.user){
-           await req.session.destroy(function(error){
-               if(error){
-                   console.log(error)
-               }else{
-                   console.log("session 삭제");
-                   res.redirect("/");
-               }
-           })
-       }
-   }catch(error){
-       console.log(error);
-   }
-   res.redirect("/");
+    const session = req.session;
+    try{
+        if(session.user){
+            await session.destroy(function(error){
+                if(error){
+                    console.log(error)
+                }else{
+                    console.log("session 삭제");
+                    res.redirect("/");
+                }
+            })
+        }
+    }catch(error){
+        console.log(error);
+    }
+    res.redirect("/");
 };
 export const see = (req, res) => res.send("See User");
 
