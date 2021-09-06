@@ -343,7 +343,7 @@ let으로 바꿔줘야한다.
 검색 조건 필터는 mongodb에서 찾기
 regex는 mongodb에서 정규표현식을 쓸 수 있게 한다.
 
-## USER AUTHENTICATION
+# ✅USER AUTHENTICATION
 
 user schema 작성
 
@@ -358,22 +358,29 @@ DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes inst
 
 DB에 password를 그대로 입력해서는 안된다. 해시화해서 저장해야한다.
 해싱은 일방향 함수
-bcrypt를 사용해서 해시화하기
+bcrypt를 사용해서 암호화하기<br>
+
+install<br>
+
+<pre>
+npm i bcrypt
+</pre>
 
 userSchema.pre("save", async function(){
 this.password = await bcrypt.hash(this.password, 해싱횟수)
 });
 this는 create되는 값을 의미한다.
-콜백은 필요없다. await/async를 쓰고 있기 때문
+await/async를 쓰고 있기 때문 콜백은 사용하지 않아도 됨
 
 ## form validation> 중복된 값이 있는지 확인하기
 
-$ or operator를 쓰면 각 조건이 true일 때 실행되게 만들 수 있다
-하나라도 같은 값이 존재하면 true값을 리턴
+$ or operator 하나라도 같은 값이 존재하면 true값을 리턴
 
 ## status code
 
-브라우저에게 status code로 통해 상태를 알려줄 수 있다.
+계정 생성할 때 성공한건지 아닌지 알려줄 필요가 있다.
+status code가 브라우저에게 성공인지 아닌지 알려준다.
+
 브라우저에게 알맞은 status code를 알려주는건 중요하다.
 브라우저는 방문하면 히스토리를 남기는데 status code를 통해서 남길지 안 남길지를 정할 수 있다.
 200은 히스토리를 남긴다.
@@ -391,8 +398,18 @@ booleand을 반환한다.
 
 ## session
 
+### 세션이란
+백엔드와 브라우저 간에 어떤 활동을 했는지 기억하는걸 말한다.
+<pre>
+브라우저 - (세션) - 백엔드
+</pre>
+
 사이트에 모든 사람들이 로그인을 하지 않더라도 기억하게 된다.
-사이트에 들어온 사람들은 모두 다른 텍스트를 전달해준다. 그 텍스트를 이용해서 유저를구분한다.
+사이트에 들어온 사람들은 모두 다른 텍스트를 전달해준다. 그 텍스트를 이용해서 유저를 구분한다.
+
+### expres-session
+
+express-session을 통해서 세션을 구현한다. 
 
 브라우저는 우리에게 쿠키를 준다. 브라우저가 백엔드로 쿠키를 보내준다.
 
