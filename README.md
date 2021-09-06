@@ -399,7 +399,9 @@ booleand을 반환한다.
 ## session
 
 ### 세션이란
+
 백엔드와 브라우저 간에 어떤 활동을 했는지 기억하는걸 말한다.
+
 <pre>
 브라우저 - (세션) - 백엔드
 </pre>
@@ -409,7 +411,7 @@ booleand을 반환한다.
 
 ### expres-session
 
-express-session을 통해서 세션을 구현한다. 
+express-session을 통해서 세션을 구현한다.
 
 브라우저는 우리에게 쿠키를 준다. 브라우저가 백엔드로 쿠키를 보내준다.
 
@@ -419,7 +421,9 @@ req.sessiontStore() 사용했을때 한번은 undefined가 나온 이유가 세�
 매 요청때마다 서버에게 전달 세션은 서버가 만들어서 제공해주다보니 서버가 재부팅되면 초기화 된다. (그래서 DB에 저장해서 관리를 한다는 소리. 실 운영에선 서버가 꺼지는 일은 없으니깐.)
 세션의 값은 서버가 만들어주는 고유값이다보니 해당 값을 기준으로 클라이언트에서 요청한 건에 대해 유저를 특정지을 수 있다
 
-각 유저마 서로 다른 req.session object를 가지고 있다.
+<strong>각 유저마 서로 다른 req.session object를 가지고 있다.</strong>
+
+
 
 locals object는 전역으로 사용된다.
 
@@ -427,6 +431,17 @@ session에 로그인 정보를 넣을려면 object 형태로 추가해주면된�
 
 const user = await User.findOne({username});
 req.session.user = user;
+
+## response-object - locals(전역변수)
+response-object에서 locals이란 object가 있다. 이 Object는 비어있다.
+pug template에서 locals에 접근 할 수 있다.
+locals을 모든 템플릿에 존재한다. middleware를 router에 적용 했을 때 한해서 가능하다.
+locals를 통해서 template에 변수를 전역적으로 보낼 수 있다.
+
+### 사용방법
+res.locals.변수 = "";
+
+pug에서 사용할 때는 locals 빼고 변수 명으로 사용할 수 있다.
 
 ## session 정리
 
