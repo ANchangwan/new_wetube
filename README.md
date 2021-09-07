@@ -423,8 +423,6 @@ req.sessiontStore() 사용했을때 한번은 undefined가 나온 이유가 세�
 
 <strong>각 유저마 서로 다른 req.session object를 가지고 있다.</strong>
 
-
-
 locals object는 전역으로 사용된다.
 
 session에 로그인 정보를 넣을려면 object 형태로 추가해주면된다.
@@ -433,12 +431,14 @@ const user = await User.findOne({username});
 req.session.user = user;
 
 ## response-object - locals(전역변수)
+
 response-object에서 locals이란 object가 있다. 이 Object는 비어있다.
 pug template에서 locals에 접근 할 수 있다.
 locals을 모든 템플릿에 존재한다. middleware를 router에 적용 했을 때 한해서 가능하다.
 locals를 통해서 template에 변수를 전역적으로 보낼 수 있다.
 
 ### 사용방법
+
 res.locals.변수 = "";
 
 pug에서 사용할 때는 locals 빼고 변수 명으로 사용할 수 있다.
@@ -471,6 +471,7 @@ masAge: 20000,
 만든파일 git에 추가
 
 ## ✅ User Profile
+
 user profile를 접속할려면 로그인 상태에서만 접속할 수 있어야 한다.
 세션을 이용하면 간단하게 해결 가능하다.
 
@@ -480,8 +481,9 @@ ex) req.session.loggedin = true
 이런식으로 해주고 middleware 모듈에 로그인했는지 안했는지 판별식에 함수를 만들어서 확인한다.
 
 ### all()
+
 get,post 등 어떤 http method를 사용하든지 이 middleware를 사용하겠다는 뜻
 
 ### login, userProfile 등등 로그인한 유저, 로그인 안된 유저에 대한 문제 해결
 
-middleware 모듈에 session을 이용해서 
+middleware 모듈에 session을 이용해서 수정
