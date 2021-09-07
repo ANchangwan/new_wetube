@@ -469,3 +469,19 @@ masAge: 20000,
 
 노출하고 싶지 않은 url이나 api를 숨기는 방법 process.env파일 만들기
 만든파일 git에 추가
+
+## ✅ User Profile
+user profile를 접속할려면 로그인 상태에서만 접속할 수 있어야 한다.
+세션을 이용하면 간단하게 해결 가능하다.
+
+세션을 만들 때 유저가 로그인한다면 값을 true를 추가해준다.
+ex) req.session.loggedin = true
+
+이런식으로 해주고 middleware 모듈에 로그인했는지 안했는지 판별식에 함수를 만들어서 확인한다.
+
+### all()
+get,post 등 어떤 http method를 사용하든지 이 middleware를 사용하겠다는 뜻
+
+### login, userProfile 등등 로그인한 유저, 로그인 안된 유저에 대한 문제 해결
+
+middleware 모듈에 session을 이용해서 

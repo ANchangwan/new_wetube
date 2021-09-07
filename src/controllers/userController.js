@@ -40,7 +40,8 @@ export const postLogin = async (req, res) =>{
     const {username, password} = req.body;
     const pageTitle = "login";
     const user = await User.findOne({username});
-
+    console.log(user);
+    
     if(!user){
         return res.status(400).render("login",{pageTitle,errorMessage:"계정이 존재하지 않습니다."});
     }
@@ -50,7 +51,7 @@ export const postLogin = async (req, res) =>{
         return res.status(400).render("login",{pageTitle, errorMessage:"Wrong password"});
     }
     req.session.loggedIn = true;
-    req.session.user =  user;// session에 정보 추가
+    req.session.user = user;// session에 정보 추가
     res.redirect("/");
 }
 
@@ -133,7 +134,13 @@ export const logout = async (req, res) => {
     req.session.destroy();
     return res.redirect("/");
 };
-export const edit = (req, res) => res.render("edit");
+export const getEdit = (req, res) =>{
+
+    return res.render("edit-profile", {pageTitle:"Edit Profile"});
+}
+export const postEdit = (req, res)=> {
+    return res.render("edit-profile");
+}
 export const remove = (req, res) => res.send("remove User");
-export const see = (req, res) => res.send("See User");
+export const see = (req, res) => res.render("see");
 
