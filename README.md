@@ -487,3 +487,30 @@ get,post 등 어떤 http method를 사용하든지 이 middleware를 사용하�
 ### login, userProfile 등등 로그인한 유저, 로그인 안된 유저에 대한 문제 해결
 
 middleware 모듈에 session을 이용해서 수정
+
+### Edit Profile
+현재 로그인된 user의 id를 어떻게 얻을까?
+requst object에 req.session.user가 있다.
+
+req object 받아오기
+
+const {
+    session:{
+        user:{id}
+    } = req;
+}
+
+const edit_id = req.session.user.id;
+
+DB 업데이트 할 때 -> findByIdAndUpdate(id로 찾을 때 사용)
+
+### findByIdAndUpdate 할때 최신 데이터로 업데이트가 안되는 문제 해결 -> option, {new:true} 사용
+const updatedUser = await User.findByIdAndUpdate(
+        _id,{
+            name,
+            email,
+            username,
+            location
+        },
+        {new:true}
+    );

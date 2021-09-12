@@ -1,10 +1,12 @@
 extends base
 
 block content 
+    if existsMessage 
+        span=existsMessage
     h1=pageTitle
     form(method="POST")
         input(placeholder="name" name="name", type="text", requireed, value=loggedInUser.name)
         input(placeholder="email" name="email", type="email", requireed,value=loggedInUser.email)
         input(placeholder="username" name="username", type="text", requireed,value=loggedInUser.username)
-        input(placeholder="location" name="loaction", type="text", requireed, value=loggedInUser.location)
+        input(placeholder="location" name="location", type="text", requireed, value=loggedInUser.location)
         input(type="submit", value="Update Profile")

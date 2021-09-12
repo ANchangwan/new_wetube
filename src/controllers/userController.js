@@ -95,7 +95,7 @@ export const finishGithub = async (req, res) =>{
                 },
             })
         ).json();
-        console.log( userData);
+        
         const emailData = await(
             await fetch(`${apiUrl}/user/emails` ,{
                 headers:{
@@ -135,12 +135,35 @@ export const logout = async (req, res) => {
     return res.redirect("/");
 };
 export const getEdit = (req, res) =>{
+    
 
     return res.render("edit-profile", {pageTitle:"Edit Profile"});
 }
-export const postEdit = (req, res)=> {
-    return res.render("edit-profile");
-}
+export const postEdit = async(req, res)=> {
+    
+    const {session: {
+        user: {_id},
+    },
+    body: {name, email, username, location},
+} = req;
+    const exists = await User.exists({$or:[{username},{email}]});
+    
+    if (exists){
+        return res.status(404).render("edit-profile", {existsMessage:"이미 존재합니다."});
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+        _id,{
+            name,
+            email,
+            username,
+            location
+        },
+        {new:true}
+    );
+    req.session.user = updatedUser;
+
+    return res.redirect("edit-profile");
+};
 export const remove = (req, res) => res.send("remove User");
 export const see = (req, res) => res.render("see");
 
