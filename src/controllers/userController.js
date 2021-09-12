@@ -168,7 +168,7 @@ export const getChangePassword = (req, res) => {
     // if(req.session.user.socialOnly === true){
     //     return res.redirect("/")
     // }
-    return res.render("change-password", {pageTitle:"Change Password"});
+    return res.render("users/change-password", {pageTitle:"Change Password"});
 }
 export const postChangePassword = (req, res) => {
     return res.redirect("/")
