@@ -136,16 +136,16 @@ export const logout = async (req, res) => {
 };
 export const getEdit = (req, res) =>{
     
-
     return res.render("edit-profile", {pageTitle:"Edit Profile"});
 }
 export const postEdit = async(req, res)=> {
     
     const {session: {
-        user: {_id},
+        user: {_id, email:sessionEmail,username:sessionUsername},
     },
     body: {name, email, username, location},
 } = req;
+
     const exists = await User.exists({$or:[{username},{email}]});
     
     if (exists){
@@ -162,8 +162,17 @@ export const postEdit = async(req, res)=> {
     );
     req.session.user = updatedUser;
 
-    return res.redirect("edit-profile");
+    return res.redirect("users/edit-profile");
 };
+export const getChangePassword = (req, res) => {
+    // if(req.session.user.socialOnly === true){
+    //     return res.redirect("/")
+    // }
+    return res.render("change-password", {pageTitle:"Change Password"});
+}
+export const postChangePassword = (req, res) => {
+    return res.redirect("/")
+}
 export const remove = (req, res) => res.send("remove User");
 export const see = (req, res) => res.render("see");
 
