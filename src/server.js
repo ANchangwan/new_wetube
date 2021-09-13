@@ -7,6 +7,8 @@ import videoRouter from "./routers/videoRouter";
 import userRounter from "./routers/userRouter";
 import { localsMiddleware } from "./middlewares";
 
+
+
 const app = express();
 
 app.set("view engine", "pug");
@@ -23,6 +25,7 @@ app.use(session(
 
 app.use(localsMiddleware);
 app.use("/", rootRouter);
+app.use("/uploads", express.static("uploads"));
 app.use("/users", userRounter);
 app.use("/videos", videoRouter);
 

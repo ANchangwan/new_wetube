@@ -518,3 +518,21 @@ const updatedUser = await User.findByIdAndUpdate(
 ### change password
 비밀번호를 변경할 때는 session 또한 업데이트 해줘야 한다. db만 변경되고 session은 그대로인 경우가 있는데 
 session과 db가 서로 달라서 제대로 동작하지 않는다.
+
+### muter
+
+파일을 업로드 할 수 있게 해주는 미들웨어
+
+uploadFiles.single("avatar")은 template의 input에서 오는 avatar 파일을 가지고   파일을 업로드하고 
+upload폴더에 저장
+
+주의사항
+절대 DB에 파일을 저장하지 않고 uploads 파일에 저장한다.
+
+### 외부 폴더 사용하기
+multer을 이용해서 파일을 업로드 하면 업로드 파일에 저장된다. 이걸 가져다가 쓸려면 에러가 발생한다.
+브라우저가 어떤 페이지와 폴더를 볼 수 있는지 알려줘야 한다.
+이러한 문제를 해결하기 위해서 static을 사용해서 내가 노출하고 싶은 폴더의 이름 쓰면 된다.
+
+선언
+app.use("/uploads", express.static) 

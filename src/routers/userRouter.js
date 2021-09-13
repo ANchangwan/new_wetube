@@ -8,13 +8,13 @@ import { getEdit,
          getChangePassword,
          postChangePassword
         } from "../controllers/userController";
-import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
+import { protectorMiddleware, publicOnlyMiddleware, uploadFiles } from "../middlewares";
 
 const userRounter = express.Router();
 
 
 userRounter.get("/logout", protectorMiddleware,logout);
-userRounter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRounter.route("/edit").all(protectorMiddleware).get(getEdit).post(uploadFiles.single("avatar"),postEdit);
 userRounter.route("/change-password").all(protectorMiddleware).get(getChangePassword).post(postChangePassword);
 userRounter.get("/github/start", publicOnlyMiddleware,startGithubLogin);
 userRounter.get("/github/finish", publicOnlyMiddleware,finishGithub);
