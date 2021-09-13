@@ -514,3 +514,7 @@ const updatedUser = await User.findByIdAndUpdate(
         },
         {new:true}
     );
+
+### change password
+비밀번호를 변경할 때는 session 또한 업데이트 해줘야 한다. db만 변경되고 session은 그대로인 경우가 있는데 
+session과 db가 서로 달라서 제대로 동작하지 않는다.

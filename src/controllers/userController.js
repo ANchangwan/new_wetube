@@ -144,13 +144,27 @@ export const postEdit = async(req, res)=> {
         user: {_id, email:sessionEmail,username:sessionUsername},
     },
     body: {name, email, username, location},
-} = req;
-
-    const exists = await User.exists({$or:[{username},{email}]});
+    } = req;
     
-    if (exists){
-        return res.status(404).render("edit-profile", {existsMessage:"이미 존재합니다."});
+    let existsAccount = [];
+    if (sessionEmail !== email){
+        existsAccount.push({email})
     }
+    if (sessionUsername !== username){
+        existsAccount.push({username})
+    }
+    
+    if (existsAccount.length >0){
+        const exists = await User.findOne({$or:existsAccount});
+        console.log(exists, _id,"exists");
+        if (exists && exists._id.toString() !== _id){
+            return res.status(404).render("edit-profile",{
+                pageTitle:"Edit Profile",
+                errorMessage: "already Taken"
+            })
+        }
+    }
+    
     const updatedUser = await User.findByIdAndUpdate(
         _id,{
             name,
@@ -162,16 +176,42 @@ export const postEdit = async(req, res)=> {
     );
     req.session.user = updatedUser;
 
-    return res.redirect("users/edit-profile");
+    return res.redirect("edit-profile");
 };
 export const getChangePassword = (req, res) => {
-    // if(req.session.user.socialOnly === true){
-    //     return res.redirect("/")
-    // }
+    if(req.session.user.socialOnly === true){
+        return res.redirect("/")
+    }
     return res.render("users/change-password", {pageTitle:"Change Password"});
 }
-export const postChangePassword = (req, res) => {
-    return res.redirect("/")
+export const postChangePassword = async (req, res) => {
+    const {session: {
+        user: { _id, password },
+    },
+    body: {oldPassword,
+        newPassword,
+        newPasswordConfirmation},
+    } = req;
+    const ok = await bcrypt.compare(oldPassword, password);
+    if (!ok){
+        return res.status(400).render("users/change-password", 
+        {
+            pageTitle:"Change Password", 
+            errorMessage:"현재 비밀번호와 일치하지 않습니다."
+        });
+    }
+    if (newPassword !== newPasswordConfirmation){
+        return res.status(400).render("users/change-password", 
+        {
+            pageTitle:"Change Password", 
+            errorMessage:"새로운 비밀번호가 일치하지 않습니다."
+        });
+    }
+    const user = await User.findById(_id);
+    user.password = newPassword;
+    await user.save();
+    req.session.user.password = user.password;
+    return res.redirect("/users/logout")
 }
 export const remove = (req, res) => res.send("remove User");
 export const see = (req, res) => res.render("see");

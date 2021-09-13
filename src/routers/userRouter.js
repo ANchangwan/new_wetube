@@ -1,7 +1,6 @@
 import express from "express";
 import { getEdit,
          postEdit, 
-         remove, 
          see, 
          logout,
          startGithubLogin,
@@ -15,7 +14,7 @@ const userRounter = express.Router();
 
 
 userRounter.get("/logout", protectorMiddleware,logout);
-userRounter.route("/edit-profile").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRounter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
 userRounter.route("/change-password").all(protectorMiddleware).get(getChangePassword).post(postChangePassword);
 userRounter.get("/github/start", publicOnlyMiddleware,startGithubLogin);
 userRounter.get("/github/finish", publicOnlyMiddleware,finishGithub);
