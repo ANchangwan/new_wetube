@@ -540,3 +540,17 @@ app.use("/uploads", express.static)
 ### Video Upload
 multer은 "req.file"fmf 제공해 준다. file 안에 path가 존재한다.
 "multe"를 사용해서 파일을 업로드하고 싶다면 **"form"의 "encoding type"을 바꿔줘야한다.
+
+### 두개의 서로 다른 schema 연결하기
+
+owner:{
+        type:mongoose.Schema.Types.ObjectId, 
+        required:true,
+        ref:"User",
+    },
+
+ref를 통해서 어떤 모델들을 참고할지 설정해준다.
+
+### populate
+
+owner에 참조한 User 데이터를 채워준다. 다른 모델 데이터들을 연결 시켜준다.
