@@ -19,7 +19,7 @@ userRounter.route("/change-password").all(protectorMiddleware).get(getChangePass
 userRounter.get("/github/start", publicOnlyMiddleware,startGithubLogin);
 userRounter.get("/github/finish", publicOnlyMiddleware,finishGithub);
 
-userRounter.get("/:id(\\d+)", see);
+userRounter.get("/:id", see);
 
 
 export default userRounter;
