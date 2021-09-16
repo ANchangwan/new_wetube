@@ -25,6 +25,7 @@ app.use(session(
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets")); // url, 폴더명
 app.use("/", rootRouter);
 app.use("/users", userRounter);
 app.use("/videos", videoRouter);

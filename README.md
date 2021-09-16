@@ -639,3 +639,9 @@ npm install sass-loader sass webpack --save-dev
 sass는 웹이 이해하지 못한다. 그래서 css로 변환하기 위한 loader를 설치해야 한다.
 
 다른 loader들을 합쳐야 되는 상황은 역순으로 설정한다.
+
+### MiniCssExtractPlugin
+
+❌"style-loader"와 MiniCssExtractPlugin.loader를 함께 사용하면 안됩니다!
+
+css 개별 추출을 위한 플러그인
