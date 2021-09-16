@@ -535,7 +535,12 @@ multer을 이용해서 파일을 업로드 하면 업로드 파일에 저장된�
 이러한 문제를 해결하기 위해서 static을 사용해서 내가 노출하고 싶은 폴더의 이름 쓰면 된다.
 
 선언
-app.use("/uploads", express.static) 
+app.use("/uploads", express.static())
+
+### static 파일
+static 파일이란 Express 한테 사람들이 이 폴더 안에 있는 파일들을 볼 수 있게 해달라고 요청
+
+서버가 어떤 폴더를 공개할지 정한다.
 
 ### Video Upload
 multer은 "req.file"fmf 제공해 준다. file 안에 path가 존재한다.
@@ -558,6 +563,7 @@ owner에 참조한 User 데이터를 채워준다. 다른 모델 데이터들을
 ### bug fix
 
 isModified는 수정이 일어났는지를 판별하는 함수
+
 
 
 ## ✅ Webpack
@@ -600,6 +606,14 @@ path.resolve는 내가 입력한 파트들을 모아서 경로로 만들어 준�
 ### rules
 각각의 파일 종류에 따라 어떤 전환을 할건지 결정한다.
 rules는 array 타입이다
+
+### loader
+파일들을 변환하는 장치
+
+loader사용하는 방법
+1. 객체를 사용하는 방법
+2. 여러가지 loader들을 가져다가 한 가지의 변형으로 만들 수 있다.
+
 #### 사용법
 module: {
     rules: [
@@ -616,3 +630,12 @@ module: {
 test라는 파일을 loader로 가공한다. webpack은 node_modules에서 babel-loader를 찾는다.
 몇가지 옵션을 전달한다.
 
+### sass-loader
+
+<pre>
+npm install sass-loader sass webpack --save-dev
+</pre>
+
+sass는 웹이 이해하지 못한다. 그래서 css로 변환하기 위한 loader를 설치해야 한다.
+
+다른 loader들을 합쳐야 되는 상황은 역순으로 설정한다.
