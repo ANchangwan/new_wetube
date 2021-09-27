@@ -7,7 +7,7 @@
     position: relative;
     input{
         all:unset;
-        padding:5px 20px;
+        padding:15px 20px;
         border-radius: 5px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background-color: black;
@@ -21,8 +21,8 @@
         all:unset;
     }
     button{
-        border: 1px solid rgba(255, 255, 255, 0.2);
         position: absolute;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         right:15px;
         font-size: 18px;
         background-color: raga(0,0,0,0);
