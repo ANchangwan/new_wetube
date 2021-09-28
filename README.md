@@ -645,3 +645,17 @@ sass는 웹이 이해하지 못한다. 그래서 css로 변환하기 위한 load
 ❌"style-loader"와 MiniCssExtractPlugin.loader를 함께 사용하면 안됩니다!
 
 css 개별 추출을 위한 플러그인
+
+###
+실행할때는 webpack 백엑드를 동시에 실행해야 변경에 대해 에러가 발생하지 않는다.
+
+### clean
+
+output folder에 build를 시작하기 전에 clean 해준다.
+
+### nodemon.json
+webpack.config.js에 설정을 바꿀 때마다 재 실행되는 문제를 해결해준다.
+
+### 여러 다른 파일들을 webpack으로 포함시키는 방법
+
+entry를 객체 형태로 만들고 (ex) entry:{ }) output에 filename: "js/[name].js"로 설정한다.
