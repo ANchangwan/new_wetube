@@ -113,6 +113,13 @@ const handleSpacebar = (event) =>{
     }
 }
 
+const handleEnded = () =>{
+    const {id} = videoContainer.dataset;
+    fetch(`/api/videos/${id}/views`,{
+        method:"POST",
+    });
+}
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -121,6 +128,7 @@ fullScreenBtn.addEventListener("click", handleFullScreen);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handdleTimeUpdate);
 video.addEventListener("click",handlePlayClick);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 document.addEventListener("keydown", handleSpacebar);
