@@ -489,15 +489,16 @@ get,post 등 어떤 http method를 사용하든지 이 middleware를 사용하�
 middleware 모듈에 session을 이용해서 수정
 
 ### Edit Profile
+
 현재 로그인된 user의 id를 어떻게 얻을까?
 requst object에 req.session.user가 있다.
 
 req object 받아오기
 
 const {
-    session:{
-        user:{id}
-    } = req;
+session:{
+user:{id}
+} = req;
 }
 
 const edit_id = req.session.user.id;
@@ -505,31 +506,34 @@ const edit_id = req.session.user.id;
 DB 업데이트 할 때 -> findByIdAndUpdate(id로 찾을 때 사용)
 
 ### findByIdAndUpdate 할때 최신 데이터로 업데이트가 안되는 문제 해결 -> option, {new:true} 사용
+
 const updatedUser = await User.findByIdAndUpdate(
-        _id,{
-            name,
-            email,
-            username,
-            location
-        },
-        {new:true}
-    );
+\_id,{
+name,
+email,
+username,
+location
+},
+{new:true}
+);
 
 ### change password
-비밀번호를 변경할 때는 session 또한 업데이트 해줘야 한다. db만 변경되고 session은 그대로인 경우가 있는데 
+
+비밀번호를 변경할 때는 session 또한 업데이트 해줘야 한다. db만 변경되고 session은 그대로인 경우가 있는데
 session과 db가 서로 달라서 제대로 동작하지 않는다.
 
 ### muter
 
 파일을 업로드 할 수 있게 해주는 미들웨어
 
-uploadFiles.single("avatar")은 template의 input에서 오는 avatar 파일을 가지고   파일을 업로드하고 
+uploadFiles.single("avatar")은 template의 input에서 오는 avatar 파일을 가지고 파일을 업로드하고
 upload폴더에 저장
 
 주의사항
 절대 DB에 파일을 저장하지 않고 uploads 파일에 저장한다.
 
 ### 외부 폴더 사용하기
+
 multer을 이용해서 파일을 업로드 하면 업로드 파일에 저장된다. 이걸 가져다가 쓸려면 에러가 발생한다.
 브라우저가 어떤 페이지와 폴더를 볼 수 있는지 알려줘야 한다.
 이러한 문제를 해결하기 위해서 static을 사용해서 내가 노출하고 싶은 폴더의 이름 쓰면 된다.
@@ -538,21 +542,23 @@ multer을 이용해서 파일을 업로드 하면 업로드 파일에 저장된�
 app.use("/uploads", express.static())
 
 ### static 파일
+
 static 파일이란 Express 한테 사람들이 이 폴더 안에 있는 파일들을 볼 수 있게 해달라고 요청
 
 서버가 어떤 폴더를 공개할지 정한다.
 
 ### Video Upload
+
 multer은 "req.file"fmf 제공해 준다. file 안에 path가 존재한다.
-"multe"를 사용해서 파일을 업로드하고 싶다면 **"form"의 "encoding type"을 바꿔줘야한다.
+"multe"를 사용해서 파일을 업로드하고 싶다면 \*\*"form"의 "encoding type"을 바꿔줘야한다.
 
 ### 두개의 서로 다른 schema 연결하기
 
 owner:{
-        type:mongoose.Schema.Types.ObjectId, 
-        required:true,
-        ref:"User",
-    },
+type:mongoose.Schema.Types.ObjectId,
+required:true,
+ref:"User",
+},
 
 ref를 통해서 어떤 모델들을 참고할지 설정해준다.
 
@@ -564,11 +570,10 @@ owner에 참조한 User 데이터를 채워준다. 다른 모델 데이터들을
 
 isModified는 수정이 일어났는지를 판별하는 함수
 
-
-
 ## ✅ Webpack
 
 ### webpack.config.js
+
 webpack을 설정하기 위한 파일 생성
 
 오래된 자바스크립트 코드만 이해할 수 있음
@@ -580,23 +585,27 @@ const xx = require("xx");
 모든 파일들에는 entry가 필요하고, output이 필요하다
 
 ### mode
+
 webpack에게 지금 개발 중인지 아닌지 알려준다. 만약 production 모드일 경우 코드를 압축시켜 준다.
 그렇게 되면 개발 중에 발생한 오류를 수정할 때 파악하기 힘들다.
 개발 중일 때는 development를 설정해줘야한다.
 
-### Entry 
+### Entry
 
 우리가 처리하고자 하는 파일들, 내가 작성한 코드들
 
 ### output
+
 결과물을 위해서 파일명을 설정
 
 ### path
+
 파일을 어디에 저장할 절대 경로 지정
 
-#### __dirname
+#### \_\_dirname
+
 절대 경로란 말그대로 폴더에 절대적인 위치를 말한다. 현재폴더를 기준이 아니라 전체 경로를 말한다.
-전체를 경로를 설정하기 위해서 __dirname을 사용하면 편하게 경로를 가져 올 수 있다.
+전체를 경로를 설정하기 위해서 \_\_dirname을 사용하면 편하게 경로를 가져 올 수 있다.
 
 #### path.resolve()
 
@@ -604,27 +613,31 @@ const path = require("path");
 path.resolve는 내가 입력한 파트들을 모아서 경로로 만들어 준다.
 
 ### rules
+
 각각의 파일 종류에 따라 어떤 전환을 할건지 결정한다.
 rules는 array 타입이다
 
 ### loader
+
 파일들을 변환하는 장치
 
 loader사용하는 방법
+
 1. 객체를 사용하는 방법
 2. 여러가지 loader들을 가져다가 한 가지의 변형으로 만들 수 있다.
 
 #### 사용법
+
 module: {
-    rules: [
-        {
-            test: /\
-            use:{
-                loader:
-                options:
-            }
-        }
-    ]
+rules: [
+{
+test: /\
+ use:{
+loader:
+options:
+}
+}
+]
 }
 
 test라는 파일을 loader로 가공한다. webpack은 node_modules에서 babel-loader를 찾는다.
@@ -647,6 +660,7 @@ sass는 웹이 이해하지 못한다. 그래서 css로 변환하기 위한 load
 css 개별 추출을 위한 플러그인
 
 ###
+
 실행할때는 webpack 백엑드를 동시에 실행해야 변경에 대해 에러가 발생하지 않는다.
 
 ### clean
@@ -654,8 +668,39 @@ css 개별 추출을 위한 플러그인
 output folder에 build를 시작하기 전에 clean 해준다.
 
 ### nodemon.json
+
 webpack.config.js에 설정을 바꿀 때마다 재 실행되는 문제를 해결해준다.
 
 ### 여러 다른 파일들을 webpack으로 포함시키는 방법
 
 entry를 객체 형태로 만들고 (ex) entry:{ }) output에 filename: "js/[name].js"로 설정한다.
+
+## video Api
+
+이동없이 URL을 호출할 수 있는 방법
+
+### data attribute
+
+html에 데이터를 저장하는 방법
+
+백엔드와 프론트엔드 데이터를 공유하는 방법
+
+"data-xx" 시작하는 이름으로 어떤 데이터든지 저장할 수 있고 element.dataset으로 데이터에 접근할 수도 있다
+
+element.dataset은 클래스나 아디를 가져오는 document를 사용하면 된다.
+
+### fetch
+
+fetch는 기본적으로 get을 이용한다. 그래서 post로 바꿀려면 method: post로 변경하면 된다.
+
+### 무한 랜딩
+
+원인은 상태만 보냈지 무엇을 랜딩할지 정하지 않았기 때문에 발생한다.
+
+sendStatus로 문제 해결
+
+### status 와 sendstatus와에 차이
+
+status : status()로는 render()하기 전에 상태 코드를 정할 수 있다.
+
+sendStatus: sendStatus()는 상태 코드를 보내고 연결을 끝낸다.
