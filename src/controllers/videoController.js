@@ -98,7 +98,7 @@ export const deleteVideo = async (req, res) =>{
   if(String(video.owner) !== String(_id)){
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndDelete(id);
+  await Video.findByIdAndDelete(id);s
   return res.redirect("/");
 }
 
