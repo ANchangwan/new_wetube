@@ -704,3 +704,34 @@ sendStatus로 문제 해결
 status : status()로는 render()하기 전에 상태 코드를 정할 수 있다.
 
 sendStatus: sendStatus()는 상태 코드를 보내고 연결을 끝낸다.
+
+## ✅video Recorder
+
+### navigator.mediaDevices.getUserMedia
+navigator.mediaDevices.getUserMedia을 이용해서 비디오 영상 기록 하는 기능을 구현
+
+### regeneratorRuntime
+
+regeneratorRuntime 에러가 발생하면 설치해야 해서 해결해야한다.
+
+다른 방법은 promise를 이용하면 regeneratorRuntime에러가 발생하지 않는다.
+
+단, async/await를 이용할려면 regeneratorRuntime를 설치해야한다.
+
+### removeEventListener 
+
+start recording을 클릭하면 stop recording으로 바꾸고 다시 stop recording을 누르면 start Recording이
+생기고 이벤트가 바뀔려면 removeVentListener로 기존 이벤트를 지우고 stop recording에 이벤트로 바꾸면 된다.
+start recording도 같은 방식으로 바꾸면 된다.
+
+### 함수간에 저장된 데이터 변수를 사용
+
+start 와 stop 함수간에 const로 할당된 변수를 전달할 수 없다.
+
+let으로 선언해서 전역변수로 만들어서 이 문제 해결
+
+
+### createObjectUrl
+createObjectUrl은 브라우저 메모리에서만 가능한 URL을 만들어준다.
+이 url은 부라우저의 메모리에 존재한다.
+즉, 내가 녹화한 영상 메모리는 브라우저에 메모리에 존재한다.
