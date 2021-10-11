@@ -7,6 +7,7 @@ import videoRouter from "./routers/videoRouter";
 import userRounter from "./routers/userRouter";
 import apiRouter from "./routers/apiRouter";
 import { localsMiddleware } from "./middlewares";
+import flash from "express-flash";
 
 
 
@@ -18,12 +19,13 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({extended: true}));
 app.use(session(
     {secret:process.env.COOKIE_SECRET,
-    resave:false,
-    saveUninitialized:false,
-    store: MongoStore.create({mongoUrl:process.env.DB_URL}),
-}
-));
-
+        resave:false,
+        saveUninitialized:false,
+        store: MongoStore.create({mongoUrl:process.env.DB_URL}),
+    }
+    ));
+    
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets")); // url, 폴더명
