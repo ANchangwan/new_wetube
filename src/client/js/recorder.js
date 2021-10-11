@@ -11,7 +11,7 @@ const handleDownload = () =>{
     a.download = "MyRecording.webm";
     document.body.appendChild(a);
     a.click();
-}
+};
 
 const handleStop = () =>{
     startBtn.innerText = "Download Recording";
@@ -24,7 +24,7 @@ const handleStart = () =>{
     startBtn.innerText = "Stop Recording";
     startBtn.removeEventListener("click", handleStart);
     startBtn.addEventListener("click", handleStop);
-    recorder = new MediaRecorder(stream, {mimeType:"video/mp4"});
+    recorder = new MediaRecorder(stream, {mimeType:"video/webm"});
     recorder.ondataavailable = (event) =>{
         videoFile = URL.createObjectURL(event.data);
         video.srcObject = null;
@@ -33,7 +33,7 @@ const handleStart = () =>{
         video.play();
     };
     recorder.start();
-}
+};
    
 
 const init = async() =>{
@@ -42,7 +42,7 @@ const init = async() =>{
             video:true,
         });
     video.srcObject = stream;
-    video.play(stream);
+    video.play();
 }
 
 init();
