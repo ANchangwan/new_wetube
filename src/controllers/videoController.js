@@ -16,8 +16,8 @@ export const home = async (req, res) =>{
 
 export const watch = async (req, res) =>{
     const {id} = req.params;
-    const video = await await Video.findById(id).populate("owner");
-    
+    const video = await await Video.findById(id).populate("owner").populate("comments");
+    console.log(video);
     if(video){
       return res.render("watch", {pageTitle:video.title, video});
     }else{
@@ -100,7 +100,7 @@ export const deleteVideo = async (req, res) =>{
   if(String(video.owner) !== String(_id)){
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndDelete(id);s
+  await Video.findByIdAndDelete(id);
   return res.redirect("/");
 }
 
@@ -135,7 +135,7 @@ export const createComment = async(req, res) =>{
     body:{text},
     params:{id}
   } = req;
-
+  
   const video = await Video.findById(id);
   if (!video){
     return res.sandStatus(404);
@@ -145,5 +145,13 @@ export const createComment = async(req, res) =>{
     owner:user._id,
     video:id
   });
-  return res.sendStatus(201);
+  video.comments.push(comment._id);
+  video.save();
+  return res.status(201).json({newCommentId:comment._id});
+}
+
+const deleteComment = async (req, res) =>{
+  const {id} = req.params;
+  const comment = await Comment.findById(id).populate("owner");
+  await Comment.findByIdAndDelete(id);
 }

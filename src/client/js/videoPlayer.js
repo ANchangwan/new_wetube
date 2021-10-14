@@ -19,7 +19,7 @@ let volumeValue = 0.5;
 
 video.volume = volumeValue;
 
-const handlePlayClick = (e) =>{
+const handlePlayClick = () =>{
     
     if(video.paused){
         video.play();
@@ -31,7 +31,7 @@ const handlePlayClick = (e) =>{
 
 
 
-const handleMute = (e) =>{
+const handleMute = () =>{
     if(video.muted){
         video.muted = false;
        
