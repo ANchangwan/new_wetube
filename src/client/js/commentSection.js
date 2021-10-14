@@ -1,6 +1,10 @@
+import { async } from "regenerator-runtime";
+
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-
+const videoId = videoContainer.dataset.id;
+const videoComments = document.querySelector(".video__comments ul");
+console.log(videoComments);
 const addComment = (text, id) =>{
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
@@ -12,6 +16,7 @@ const addComment = (text, id) =>{
   span.innerText = `${text}`;
   const deletebtn = document.createElement("span");
   deletebtn.innerText = "❌";
+  deletebtn.className = "commentDeleteBtn";
   span.className = "video__comment";
   newComment.appendChild(icon);
   newComment.appendChild(span);
@@ -42,6 +47,25 @@ const handleSubmit = async (event) =>{
       addComment(text, newCommentId);
     }
 }
+const handledeleteComment = async(event) =>{
+  if(event.target.className !== "commentDeleteBtn"){
+    return;
+  }
+  const li = event.target.closest("li");
+  const commentId = li.dataset.id;
+
+  const {status} = await fetch(
+    `/api/videos/${videoId}/comment/${commentId}`,
+    {
+      method:"DELETE"
+    }
+  );
+    videoComments.removeChild(li);
+    // alert("댓글을 제거할 수 없습니다.");
+  
+}
+
+videoComments.addEventListener("click", handledeleteComment);
 
 if(form){
     form.addEventListener("submit", handleSubmit);

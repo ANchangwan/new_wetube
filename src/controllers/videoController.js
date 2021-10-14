@@ -101,6 +101,7 @@ export const deleteVideo = async (req, res) =>{
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);
+
   return res.redirect("/");
 }
 
@@ -150,8 +151,55 @@ export const createComment = async(req, res) =>{
   return res.status(201).json({newCommentId:comment._id});
 }
 
-const deleteComment = async (req, res) =>{
-  const {id} = req.params;
+export const 
+deleteComment = async (req, res) =>{
+  console.log("hi");
+  const{newCommentId} = req;
+  const { id } = req.params;
   const comment = await Comment.findById(id).populate("owner");
+  // if (!comment){
+  //   console.log("fist");
+  //   return res.status(404).render("404",{pageTitle:"Video not found!"});
+  // }
+  // if(String(comment.owner) !== String(comment)){
+  //   console.log("fist2");
+  //   return res.status(403).redirect("/");
+  // }
   await Comment.findByIdAndDelete(id);
+  // sendStatus(200);
+  // console.log(res.status);
+  return res.redirect(`videos/:id([0-9a-f]{24})`); // redirect url
+  // console.log("hi");
+  
+  // const{
+  //   session:{user:{_id}},
+  //   params:{videoId, newCommentId}
+  // } = req;
+  // //db에있는 comment id값 -> 이게변수이름이머야
+  // const video = await Video.findById(videoId).populate("owner").populate("comments");
+  // console.log(video);
+  // if (!video){
+  //   return res.status(404);
+  // }
+
+  // const comment = video.comments.find(
+  //   (comment) => String(comment._id) === newCommentId
+  //   );
+    
+  //   if (!comment){
+  //     return res.sendStatus(400);
+  //   }
+  //  await Video.findByIdAndDelete(comment.commentId);
+  // //video -> video.findby~ commentid
+
+  // video.comments = video.comments.filter(
+  //   (comment) => String(comment._id) !== commentId
+  // );
+  // if(String(video.owner !== _id)){
+  //   return res.status(403);
+  // }
+  
+  // // await video.save();
+  
+  // return res.sendStatus(200);
 }
