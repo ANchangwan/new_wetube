@@ -154,9 +154,8 @@ export const createComment = async(req, res) =>{
 export const 
 deleteComment = async (req, res) =>{
   console.log("hi");
-  const{newCommentId} = req;
   const { id } = req.params;
-  const comment = await Comment.findById(id).populate("owner");
+  // const comment = await Comment.findById(id).populate("owner");
   // if (!comment){
   //   console.log("fist");
   //   return res.status(404).render("404",{pageTitle:"Video not found!"});
