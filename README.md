@@ -708,6 +708,7 @@ sendStatus: sendStatus()는 상태 코드를 보내고 연결을 끝낸다.
 ## ✅video Recorder
 
 ### navigator.mediaDevices.getUserMedia
+
 navigator.mediaDevices.getUserMedia을 이용해서 비디오 영상 기록 하는 기능을 구현
 
 ### regeneratorRuntime
@@ -718,7 +719,7 @@ regeneratorRuntime 에러가 발생하면 설치해야 해서 해결해야한다
 
 단, async/await를 이용할려면 regeneratorRuntime를 설치해야한다.
 
-### removeEventListener 
+### removeEventListener
 
 start recording을 클릭하면 stop recording으로 바꾸고 다시 stop recording을 누르면 start Recording이
 생기고 이벤트가 바뀔려면 removeVentListener로 기존 이벤트를 지우고 stop recording에 이벤트로 바꾸면 된다.
@@ -730,8 +731,55 @@ start 와 stop 함수간에 const로 할당된 변수를 전달할 수 없다.
 
 let으로 선언해서 전역변수로 만들어서 이 문제 해결
 
-
 ### createObjectUrl
+
 createObjectUrl은 브라우저 메모리에서만 가능한 URL을 만들어준다.
 이 url은 부라우저의 메모리에 존재한다.
 즉, 내가 녹화한 영상 메모리는 브라우저에 메모리에 존재한다.
+
+## ✅ FLASH MESSAGES
+
+redirect 할때마다 사용자에게 메시지를 보내고 싶을 때 사용한다
+
+설치
+
+<pre>
+npm i express-flash
+</pre>
+
+서버에 app.use(flash()); 형태로 사용한다. 그리고
+
+redirect 하기전에 메시지를 보내는 형태로 사용하면 된다.
+req형태로 사용해야한다. -> req.flash("info", "보낼 메시지");
+
+flash는 전역 변수처럼 locals처럼 사용할 수 있다.
+
+사용법
+messages.(에러의 종류)로 사용할 수 있다.
+
+기억하기) flash 미들웨어는 messages라고 하는 locals를 사용할 수 있게 해준다.
+
+## comment
+
+### fetch
+
+fetch는 js를 통해서 requst를 보낼 수 있게 만들어준다.
+요약
+1. fetch로 백엔드에 요청을 보낼 때에
+method: "POST",
+headers: {},
+body: {},
+
+URL과 더불어 이 세 가지를 덧붙여야 한다.
+
+2. headers에는 이 요청의 세부 사항을 명시하며, body에는 실질적인 컨텐츠가 포함된다.
+
+3. 따로 명시하지 않을 시에 모든 body의 컨텐츠는 Text File로서 전송되고 받아 인식된다.
+
+4. 특히 body: { ... }, 이런 식으로 자바스크립트 오브젝트를 넘겨줄 시 외부에서 이 오브젝트는 [object Object]라는 의미 없는 문자열로 변환된다.
+
+5. 오브젝트와 그 안의 세부 변수 목록들을 넘겨주고 싶을 시, JSON이라는 규약에 의거한 오브젝트 내의 모든 기록을 텍스트화하여 넘겨주어야 하는데, 이때 JSON.stringify({ ... }) 라는 편리한 자체 표준 함수를 사용하면 된다.
+
+6. 덧붙여 headers 안에 "Content-Type": "application/json"이라는 명시를 해 주어 전송된 텍스트가 JSON파일임을 백엔드에 인식시켜 준다.
+
+7. 백엔드에 (이를테면 express를 사용 중이라면) app.use(express.json()); 미들웨어를 추가해주어 자체 내에서 JSON.parse("..."); JSON파일을 다시 자바스크립트 오브젝트로 변환해주는 표준 함수로 요청 body 내의 컨텐츠를 디코딩하는 작업을 한다.
