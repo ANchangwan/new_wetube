@@ -1,7 +1,7 @@
 # new Wetube
 
 ## 사이트
-
+![메인](https://user-images.githubusercontent.com/56478474/140726665-a5e2ffa6-a743-4510-a897-46e18ccda896.PNG)
 
 https://new-youretube.herokuapp.com/
 
